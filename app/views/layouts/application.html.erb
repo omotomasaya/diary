@@ -11,6 +11,20 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <div class="row">
+        <div class="col-4">
+          <ul>
+            <li>
+              <%= link_to "dashboards", admin_dashboards_path %>
+            </li>
+            <li>
+              <a href="#">app_users</a>
+            </li>
+          </ul>
+        </div>
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
