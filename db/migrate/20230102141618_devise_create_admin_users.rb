@@ -43,5 +43,7 @@ class DeviseCreateAdminUsers < ActiveRecord::Migration[7.0]
 
     add_column :admin_users, :last_name, :string
     add_column :admin_users, :first_name, :string
+    add_column :admin_users, :last_kana_name, :string
+    add_column :admin_users, :first_kana_name, :string
   end
 end
