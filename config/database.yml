@@ -13,7 +13,7 @@ development:
   <<: *default
   adapter: mysql2
   encoding: utf8mb4
-  username: user
+  username: root
   password: password
   database: diary_development_db
   host: db

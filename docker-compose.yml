@@ -9,7 +9,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: diary_development_db
-      MYSQL_USER: user
+      MYSQL_USER: root
       MYSQL_PASSWORD: password
     volumes:
       - mysql-data:/var/lib/mysql
@@ -18,7 +18,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/rails/Dockerfile
-    command: bundle exec unicorn_rails -E development -c ./config/unicorn.rb -p 3000
+    command: bash -c "rm -f tmp/pids/unicorn.pid && bundle exec unicorn_rails -E development -c ./config/unicorn.rb -p 3000"
     tty: true
     stdin_open: true
     depends_on:
