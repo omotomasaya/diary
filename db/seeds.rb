@@ -10,8 +10,6 @@ AdminUser.find_or_create_by!(
   email: "admin@example.com",
   last_name: "山田",
   first_name: "太郎",
-  last_kana_name: "ヤマダ",
-  first_kana_name: "タロウ"
 ) do |user|
   user.password = "password1"
   user.password_confirmation = "password1"
