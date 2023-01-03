@@ -11,10 +11,14 @@
   </head>
 
   <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <header>
       <div>
         <nav>
-          <li>setting</li>
+          <li>
+            <%= link_to "setting", edit_admin_user_registration_path %>
+          </li>
           <li>
             <%= link_to "logout", destroy_admin_user_session_path, data: { turbo_method: :delete } %>
           </li>
