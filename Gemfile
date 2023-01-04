@@ -62,6 +62,7 @@ gem 'devise', '~> 4.8'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'pry-byebug', '~> 3.10'
 end
 
 group :development do
@@ -73,6 +74,10 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem 'rubocop', '~> 1.42'
+  gem 'rubocop-performance', '~> 1.15'
+  gem 'rubocop-rails', '~> 2.17'
+  gem 'rubocop-rspec', '~> 2.16'
 end
 
 group :test do
