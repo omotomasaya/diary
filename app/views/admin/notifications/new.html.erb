@@ -1,0 +1,13 @@
+<div>
+  <div>
+    <h2>Notification new</h2>
+  </div>
+
+  <%= form_with(model: @notification, url: admin_notifications_path) do |form| %>
+
+    <div>
+      <%= link_to "戻る", new_admin_notification_path %>
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>
