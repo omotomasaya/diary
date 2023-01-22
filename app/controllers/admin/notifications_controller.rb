@@ -1,6 +1,8 @@
 class Admin::NotificationsController < Admin::ApplicationController
+  before_action :set_notification, only: [:edit, :update]
+
   def index
-    @notifications = Notification.order(:updated_at)
+    @notifications = Notification.order(start_datetime: :desc, end_datetime: :desc)
   end
 
   def new
@@ -16,16 +18,28 @@ class Admin::NotificationsController < Admin::ApplicationController
     redirect_to action: :index
   rescue StandardError => e
     logger.error(e)
-    render :new
+    render :new, status: :unprocessable_entity 
   end
 
   def edit; end
 
-  def update; end
+  def update
+    ApplicationRecord.transaction do
+      @notification.update!(notification_params)
+    end
+    redirect_to action: :index
+  rescue StandardError => e
+    logger.error(e)
+    render :edit, status: :unprocessable_entity 
+  end
 
   private
 
-    def set_notification; end
+    def set_notification
+      @notification = Notification.find_by_id(params[:id])
+
+      render_404 unless @notification
+    end
 
     def notification_params
       params.require(:notification).permit(

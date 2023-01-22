@@ -15,7 +15,7 @@
     <tbody>
       <% @notifications.each do |notification| %>
         <tr>
-          <td><%= notification.title %></td>
+          <td><%= link_to notification.title, edit_admin_notification_path(notification) %></td>
           <td><%= notification.content %></td>
           <td>
             <%= notification&.start_datetime&.strftime("%Y/%m/%d %H:%M") %> ~ <%= notification&.end_datetime&.strftime("%Y/%m/%d %H:%M") %>
