@@ -5,7 +5,6 @@ class CreateNotifications < ActiveRecord::Migration[7.0]
       t.text :content, null: false
       t.datetime :start_datetime, null: false
       t.datetime :end_datetime
-      t.boolean :status, null: false, default: false
       t.timestamps
     end
   end

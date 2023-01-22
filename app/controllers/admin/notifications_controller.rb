@@ -1,5 +1,7 @@
 class Admin::NotificationsController < Admin::ApplicationController
-  def index; end
+  def index
+    @notifications = Notification.order(:updated_at)
+  end
 
   def new
     @notification = Notification.new
@@ -17,15 +19,20 @@ class Admin::NotificationsController < Admin::ApplicationController
     render :new
   end
 
+  def edit; end
+
+  def update; end
+
   private
+
+    def set_notification; end
 
     def notification_params
       params.require(:notification).permit(
         :title,
         :content,
         :start_datetime,
-        :end_datetime,
-        :status
+        :end_datetime
       )
     end
 end

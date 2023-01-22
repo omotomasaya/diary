@@ -35,7 +35,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_04_120323) do
     t.text "content", null: false
     t.datetime "start_datetime", null: false
     t.datetime "end_datetime"
-    t.boolean "status", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
