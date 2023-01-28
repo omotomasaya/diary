@@ -3,6 +3,26 @@
     <h2>Notifications</h2>
   </div>
 
+  <div>
+    <div>
+      <h3>検索</h3>
+    </div>
+    <div>
+      <%= search_form_for @q, url: admin_notifications_path do |f| %>
+        <div>
+          <%= f.label :title, 'タイトル名' %>
+          <%= f.search_field :title_cont %>
+        </div>
+        <div>
+          <%= f.label :start_datetime, '表示期間' %>
+          <%= f.datetime_field :start_datetime_gteq %>
+          <%= f.datetime_field :start_datetime_lteq %>
+        </div>
+        <%= f.submit '検索' %>
+      <% end %>
+    </div>
+  </div>
+
   <table>
     <thead>
       <tr>

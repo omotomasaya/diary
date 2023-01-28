@@ -2,34 +2,7 @@
   <div>
     <h2>Notification new</h2>
   </div>
-
-  <% if @notification&.errors.present? %>
-    <% @notification.errors.full_messages.each do |message| %>
-      <%= message %>
-    <% end %>
-  <% end %>
-
   <%= form_with(model: @notification, url: admin_notifications_path) do |form| %>
-    <div>
-      <%= form.label :title %>
-      <%= form.text_field :title %>
-    </div>
-    <div>
-      <%= form.label :content %>
-      <%= form.text_area :content %>
-    </div>
-    <div>
-      <%= form.label :start_datetime %>
-      <%= form.datetime_field :start_datetime, minute_step: 10 %>
-    </div>
-    <div>
-      <%= form.label :end_datetime %>
-      <%= form.datetime_field :end_datetime %>
-    </div>
-
-    <div>
-      <%= link_to "戻る", admin_notifications_path %>
-      <%= form.submit %>
-    </div>
+    <%= render partial: "form", locals: { form: form }%>
   <% end %>
 </div>

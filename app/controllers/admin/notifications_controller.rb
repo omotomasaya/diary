@@ -2,7 +2,8 @@ class Admin::NotificationsController < Admin::ApplicationController
   before_action :set_notification, only: [:edit, :update]
 
   def index
-    @notifications = Notification.order(start_datetime: :desc, end_datetime: :desc)
+    @q = Notification.ransack(params[:q])
+    @notifications = @q.result.order(start_datetime: :desc, end_datetime: :desc)
   end
 
   def new
@@ -18,7 +19,7 @@ class Admin::NotificationsController < Admin::ApplicationController
     redirect_to action: :index
   rescue StandardError => e
     logger.error(e)
-    render :new, status: :unprocessable_entity 
+    render :new, status: :unprocessable_entity
   end
 
   def edit; end
@@ -30,7 +31,7 @@ class Admin::NotificationsController < Admin::ApplicationController
     redirect_to action: :index
   rescue StandardError => e
     logger.error(e)
-    render :edit, status: :unprocessable_entity 
+    render :edit, status: :unprocessable_entity
   end
 
   private
