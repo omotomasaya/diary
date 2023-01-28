@@ -1,0 +1,15 @@
+<div>
+  <div>
+    <h2>Notification edit</h2>
+  </div>
+
+  <% if @notification&.errors.present? %>
+    <% @notification.errors.full_messages.each do |message| %>
+      <%= message %>
+    <% end %>
+  <% end %>
+
+  <%= form_with(model: @notification, url: admin_notification_path(@notification), data: { turbo_method: :patch }) do |form| %>
+      <%= render partial: "form", locals: { form: form }%>
+  <% end %>
+</div>

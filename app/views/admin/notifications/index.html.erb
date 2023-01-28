@@ -1,0 +1,52 @@
+<div class="col-4" >
+  <div>
+    <h2>Notifications</h2>
+  </div>
+
+  <div>
+    <div>
+      <h3>検索</h3>
+    </div>
+    <div>
+      <%= search_form_for @q, url: admin_notifications_path do |f| %>
+        <div>
+          <%= f.label :title, 'タイトル名' %>
+          <%= f.search_field :title_cont %>
+        </div>
+        <div>
+          <%= f.label :start_datetime, '表示期間' %>
+          <%= f.datetime_field :start_datetime_gteq %>
+          <%= f.datetime_field :start_datetime_lteq %>
+        </div>
+        <%= f.submit '検索' %>
+      <% end %>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>タイトル</th>
+        <th>コンテンツ</th>
+        <th>表示期間</th>
+        <th>ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @notifications.each do |notification| %>
+        <tr>
+          <td><%= link_to notification.title, edit_admin_notification_path(notification) %></td>
+          <td><%= notification.content %></td>
+          <td>
+            <%= notification&.start_datetime&.strftime("%Y/%m/%d %H:%M") %> ~ <%= notification&.end_datetime&.strftime("%Y/%m/%d %H:%M") %>
+          </td>
+          <td><%= display_notification_status(notification) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div>
+    <%= link_to "新規作成", new_admin_notification_path %>
+  </div>
+</div>
