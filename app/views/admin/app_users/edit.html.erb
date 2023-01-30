@@ -1,0 +1,15 @@
+<div>
+  <div>
+    <h2>AppUser edit</h2>
+  </div>
+  <%= form_with(model: @app_user, url: admin_app_user_path(@app_user), data: { turbo_method: :patch }) do |form| %>
+    <div>
+      <%= render partial: "form", locals: { form: form }%>
+    
+      <div>
+        <%= link_to "戻る", admin_app_user_path(@app_user) %>
+        <%= form.submit %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,15 @@
+<div>
+  <div>
+    <h2>AppUser new</h2>
+  </div>
+  <%= form_with(model: @app_user, url: admin_app_users_path) do |form| %>
+    <div>
+      <%= render partial: "form", locals: { form: form }%>
+    
+      <div>
+        <%= link_to "戻る", admin_app_users_path %>
+        <%= form.submit %>
+      </div>
+    </div>
+  <% end %>
+</div>
