@@ -22,6 +22,7 @@ class Admin::AppUsersController < ApplicationController
     render :new, status: :unprocessable_entity
   end
 
+  # TODO: 日記コンテンツ作成時、修正
   def show; end
 
   def edit; end
