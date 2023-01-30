@@ -1,4 +1,5 @@
 namespace :admin do
+  resources :app_users
   resources :dashboards, only: [:index]
   resources :notifications, except: [:show, :destroy]
 end
