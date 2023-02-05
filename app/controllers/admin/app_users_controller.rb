@@ -1,9 +1,11 @@
 class Admin::AppUsersController < ApplicationController
+  # TODO: update動作未確認
+  # TODO: 日記コンテンツ作成時、修正
   before_action :set_app_user, only: [:show, :edit, :update, :destroy]
 
   def index
     @q = AppUser.ransack(params[:q])
-    @app_users = @q.result.order(create_at: :desc)
+    @app_users = @q.result.order(created_at: :desc)
   end
 
   def new
@@ -22,14 +24,25 @@ class Admin::AppUsersController < ApplicationController
     render :new, status: :unprocessable_entity
   end
 
-  # TODO: 日記コンテンツ作成時、修正
   def show; end
 
   def edit; end
 
   def update
+    if app_user_params[:password].blank? && app_user_params[:password_confirmation].blank?
+      updated_params = app_user_params
+      updated_params.delete(:password)
+      updated_params.delete(:password_confirmation)
+    else
+      updated_params = app_user_params
+    end
+
     ApplicationRecord.transaction do
-      @app_user.update!(app_user_params)
+      if updated_params[:password].blank? && updated_params[:password_confirmation].blank?
+        @app_user.update_without_current_password(updated_params)
+      else
+        @app_user.update!(updated_params)
+      end
     end
     redirect_to action: :index
   rescue StandardError => e
@@ -62,5 +75,9 @@ class Admin::AppUsersController < ApplicationController
         :password,
         :password_confirmation
       )
+    end
+
+    def configure_account_update_params
+      devise_parameter_sanitizer.permit(:account_update, keys: [:name])
     end
 end
