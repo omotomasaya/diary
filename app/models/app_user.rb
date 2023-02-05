@@ -4,6 +4,8 @@ class AppUser < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :confirmable, :trackable
 
+  has_many :diaries, dependent: :destroy
+
   validates :password, presence: true, on: :create
   validates :password, presence: true, allow_blank: true, on: :update
   validates :password, length: { minimum: 8 }, confirmation: true,
