@@ -1,0 +1,48 @@
+<div class="col-4" >
+  <div>
+    <h2>AppUsers</h2>
+  </div>
+
+  <div>
+    <div>
+      <h3>検索</h3>
+    </div>
+    <div>
+      <%= search_form_for @q, url: admin_app_users_path do |f| %>
+        <div>
+          <%= f.label :email, 'タイトル名' %>
+          <%= f.search_field :email_cont %>
+        </div>
+        <div>
+          <%= f.label :created_at, '作成期間' %>
+          <%= f.datetime_field :created_at_gteq %>
+          <%= f.datetime_field :created_at_lteq %>
+        </div>
+        <%= f.submit '検索' %>
+      <% end %>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>EMAIL</th>
+        <th>作成日時</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @app_users.each do |app_user| %>
+        <tr>
+          <td><%= app_user.id %></td>
+          <td><%= link_to app_user.email, admin_app_user_path(app_user) %></td>
+          <td><%= app_user&.created_at&.strftime("%Y/%m/%d %H:%M") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div>
+    <%= link_to "新規作成", new_admin_app_user_path %>
+  </div>
+</div>
