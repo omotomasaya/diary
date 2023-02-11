@@ -1,6 +1,5 @@
-class Admin::AppUsersController < ApplicationController
+class Admin::AppUsersController < Admin::ApplicationController
   # TODO: update動作未確認
-  # TODO: 日記コンテンツ作成時、修正
   before_action :set_app_user, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -24,7 +23,9 @@ class Admin::AppUsersController < ApplicationController
     render :new, status: :unprocessable_entity
   end
 
-  def show; end
+  def show
+    @diaries = Diary.where(app_user_id: @app_user.id)
+  end
 
   def edit; end
 
