@@ -2,8 +2,7 @@ class Admin::CategoriesController < Admin::ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   def index
-    @q = Category.ransack(params[:q])
-    @categories = @q.result.order(:sort_no)
+    @categories = Category.order(:sort_no)
   end
 
   def new
