@@ -9,6 +9,8 @@
         <th>ID</th>
         <th>カテゴリー名</th>
         <th>更新日時</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -17,6 +19,17 @@
           <td><%= category.id %></td>
           <td><%= category.name %></td>
           <td><%= category.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
+          <% # TODO: 編集モーダル機能作成 %>
+          <td>編集</td>
+          <td>
+            <%= link_to "削除",
+              admin_category_path(category),
+              data: {
+                turbo_method: :delete,
+                turbo_confirm:  "本当にこのカテゴリを削除しますか？"
+              }
+            %>
+          </td>
         </tr>
       <% end %>
     </tbody>
