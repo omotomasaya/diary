@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y vim less \
 RUN mkdir /myproject 
 WORKDIR /myproject
 
-COPY Gemfile /myproject/Gemfile
+ADD Gemfile /myproject/Gemfile
+ADD Gemfile.lock /myproject/Gemfile.lock
 RUN bundle install
 
-COPY . /myproject
+ADD . /myproject
