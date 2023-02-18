@@ -1,16 +1,13 @@
 class Admin::CategoriesController < Admin::ApplicationController
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_category, only: [:update, :destroy]
+  before_action :set_new_category, only: [:index, :update, :destroy]
 
   def index
     @categories = Category.order(:sort_no)
   end
 
-  def new
-    @category = Category.new
-  end
-
   def create
-    @category = Category.new(category_params)
+    @new_category = Category.new(category_params)
 
     ApplicationRecord.transaction do
       @category.save!
@@ -18,10 +15,8 @@ class Admin::CategoriesController < Admin::ApplicationController
     redirect_to action: :index
   rescue StandardError => e
     logger.error(e)
-    render :new, status: :unprocessable_entity
+    render :index, status: :unprocessable_entity
   end
-
-  def edit; end
 
   def update
     ApplicationRecord.transaction do
@@ -30,7 +25,18 @@ class Admin::CategoriesController < Admin::ApplicationController
     redirect_to action: :index
   rescue StandardError => e
     logger.error(e)
-    render :edit, status: :unprocessable_entity
+    render :index, status: :unprocessable_entity
+  end
+
+  def destroy
+    ApplicationRecord.transaction do
+      @category.destroy!
+    end
+    redirect_to action: :index
+  rescue
+    StandardError => e
+    logger.error(e)
+    render :index, status: :unprocessable_entity
   end
 
   private
@@ -39,6 +45,10 @@ class Admin::CategoriesController < Admin::ApplicationController
       @category = Category.find_by_id(params[:id])
 
       render_404 unless @category
+    end
+
+    def set_new_category
+      @new_category = Category.new
     end
 
     def category_params

@@ -1,0 +1,82 @@
+<div class="col-4" >
+  <div>
+    <h2>Categories</h2>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>カテゴリー名</th>
+        <th>更新日時</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @categories.each do |category| %>
+        <tr>
+          <td><%= category.id %></td>
+          <td><%= category.name %></td>
+          <td><%= category.updated_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div>
+    <%= link_to "新規作成", new_admin_notification_path %>
+  </div>
+</div>
+
+<button id="modalOpen" class="button">Click Me</button>
+<div id="easyModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>New Category</h3>
+    </div>
+    <div class="modal-body">
+      <%= form_with(model: @new_category, url: admin_categories_path) do |form| %>
+        <% if @new_category&.errors.present? %>
+          <% @new_category.errors.full_messages.each do |message| %>
+            <%= message %>
+          <% end %>
+        <% end %>
+        
+        <div>
+          <%= form.label :name %>
+          <%= form.text_field :name %>
+        </div>
+
+        <div>
+          <span class="modalClose">×</span>
+          <%= form.submit %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+    let buttonOpen = document.getElementById('modalOpen'),
+        modal = document.getElementById('easyModal'),
+        buttonClose = document.getElementsByClassName('modalClose')[0];
+
+    // ボタンがクリックされた時
+    buttonOpen.addEventListener('click', modalOpen);
+    function modalOpen() {
+        modal.style.display = 'block';
+    }
+
+    // バツ印がクリックされた時
+    buttonClose.addEventListener('click', modalClose);
+    function modalClose() {
+        modal.style.display = 'none';
+    }
+
+    // モーダルコンテンツ以外がクリックされた時
+    addEventListener('click', outsideClose);
+    function outsideClose(e) {
+        if (e.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>
