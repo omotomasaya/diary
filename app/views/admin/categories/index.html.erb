@@ -16,7 +16,7 @@
         <tr>
           <td><%= category.id %></td>
           <td><%= category.name %></td>
-          <td><%= category.updated_at %></td>
+          <td><%= category.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
         </tr>
       <% end %>
     </tbody>
@@ -52,7 +52,7 @@
 </div>
 
 <script>
-    let buttonOpen = document.getElementById('modalOpen'),
+    var buttonOpen = document.getElementById('modalOpen'),
         modal = document.getElementById('easyModal'),
         buttonClose = document.getElementsByClassName('modalClose')[0];
 
