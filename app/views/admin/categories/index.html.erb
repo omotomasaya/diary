@@ -1,0 +1,138 @@
+<div class="col-4" >
+  <div>
+    <h2>Categories</h2>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>カテゴリー名</th>
+        <th>更新日時</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @categories.each do |category| %>
+        <tr>
+          <td><%= category.id %></td>
+          <td><%= category.name %></td>
+          <td><%= category.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
+          <% # TODO: 編集モーダル機能作成 %>
+          <td data-modal="edit_modal_open_<%= category.id %>" class="edit_modal_open">編集</td>
+          <td>
+            <%= link_to "削除",
+              admin_category_path(category),
+              data: {
+                turbo_method: :delete,
+                turbo_confirm:  "本当にこのカテゴリを削除しますか？"
+              }
+            %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<button id="modalOpen" class="button">新規作成</button>
+
+<div id="easyModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>New Category</h3>
+    </div>
+    <div class="modal-body">
+      <%= form_with(model: @new_category, url: admin_categories_path) do |form| %>
+        <% if @new_category&.errors.present? %>
+          <% @new_category.errors.full_messages.each do |message| %>
+            <%= message %>
+          <% end %>
+        <% end %>
+        
+        <div>
+          <%= form.label :name %>
+          <%= form.text_field :name %>
+        </div>
+
+        <div>
+          <span class="modalClose">×</span>
+          <%= form.submit %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% @categories.each do |category| %>
+  <div id="edit_modal_open_<%= category.id %>" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Edit Category</h3>
+      </div>
+      <div class="modal-body">
+        <%= form_with(model: category, url: admin_category_path(category), turbo_method: :patch) do |form| %>
+          <% if category&.errors.present? %>
+            <% category.errors.full_messages.each do |message| %>
+              <%= message %>
+            <% end %>
+          <% end %>
+          
+          <div>
+            <%= form.label :name %>
+            <%= form.text_field :name %>
+          </div>
+
+          <div>
+            <span data-modal="edit_modal_open_<%= category.id %>" class="modal-close">×</span>
+            <%= form.submit %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+    var modalBtns = document.querySelectorAll(".edit_modal_open");
+    modalBtns.forEach(function (btn) {
+      btn.onclick = function () {
+        var modal = btn.getAttribute('data-modal');
+        document.getElementById(modal).style.display = "block";
+      };
+    });
+    var closeBtns = document.querySelectorAll(".modal-close");
+    closeBtns.forEach(function (btn) {
+      btn.onclick = function () {
+        var modal = btn.getAttribute('data-modal');
+        document.getElementById(modal).style.display = "none";
+      };
+    })
+</script>
+
+<script>
+    var buttonOpen = document.getElementById('modalOpen'),
+        modal = document.getElementById('easyModal'),
+        buttonClose = document.getElementsByClassName('modalClose')[0];
+
+    // ボタンがクリックされた時
+    buttonOpen.addEventListener('click', modalOpen);
+    function modalOpen() {
+        modal.style.display = 'block';
+    }
+
+    // バツ印がクリックされた時
+    buttonClose.addEventListener('click', modalClose);
+    function modalClose() {
+        modal.style.display = 'none';
+    }
+
+    // モーダルコンテンツ以外がクリックされた時
+    addEventListener('click', outsideClose);
+    function outsideClose(e) {
+        if (e.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>

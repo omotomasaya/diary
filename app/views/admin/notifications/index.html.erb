@@ -38,7 +38,7 @@
           <td><%= link_to notification.title, edit_admin_notification_path(notification) %></td>
           <td><%= notification.content %></td>
           <td>
-            <%= notification&.start_datetime&.strftime("%Y/%m/%d %H:%M") %> ~ <%= notification&.end_datetime&.strftime("%Y/%m/%d %H:%M") %>
+            <%= notification.start_datetime.strftime("%Y/%m/%d %H:%M") %> ~ <%= notification&.end_datetime&.strftime("%Y/%m/%d %H:%M") %>
           </td>
           <td><%= display_notification_status(notification) %></td>
         </tr>

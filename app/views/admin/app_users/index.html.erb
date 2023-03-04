@@ -10,7 +10,7 @@
     <div>
       <%= search_form_for @q, url: admin_app_users_path do |f| %>
         <div>
-          <%= f.label :email, 'タイトル名' %>
+          <%= f.label :email, 'メールアドレス' %>
           <%= f.search_field :email_cont %>
         </div>
         <div>
@@ -36,7 +36,7 @@
         <tr>
           <td><%= app_user.id %></td>
           <td><%= link_to app_user.email, admin_app_user_path(app_user) %></td>
-          <td><%= app_user&.created_at&.strftime("%Y/%m/%d %H:%M") %></td>
+          <td><%= app_user.created_at.strftime("%Y/%m/%d %H:%M") %></td>
         </tr>
       <% end %>
     </tbody>

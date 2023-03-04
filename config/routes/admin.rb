@@ -1,5 +1,6 @@
 namespace :admin do
   resources :app_users
+  resources :categories, only: [:index, :create, :update, :destroy]
   resources :dashboards, only: [:index]
   resources :notifications, except: [:show, :destroy]
 end

@@ -33,11 +33,11 @@
     <div>
       <%= link_to "戻る", admin_app_users_path %>
       <%= link_to "削除",
-                  admin_app_user_path(@app_user),
-                  data: {
-                    turbo_method: :delete,
-                    turbo_confirm:  "本当にこのユーザーを削除しますか？"
-                  }
+        admin_app_user_path(@app_user),
+        data: {
+          turbo_method: :delete,
+          turbo_confirm:  "本当にこのユーザーを削除しますか？"
+        }
       %>
     </div>
   </div>
