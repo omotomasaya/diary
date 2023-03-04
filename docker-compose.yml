@@ -41,9 +41,13 @@ services:
     volumes:
       - tmp-data:/myproject/tmp/sockets
       - ./public:/myproject/public
+      - log-data:/var/log/nginx 
     depends_on:
       - web 
 
 volumes:
   tmp-data:
+    driver: local
   mysql-data:
+  log-data:
+    driver: local
